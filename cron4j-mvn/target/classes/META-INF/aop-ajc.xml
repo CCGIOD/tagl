@@ -1,0 +1,6 @@
+<aspectj>
+<aspects>
+<aspect name="it.sauronsoftware.cron4j.AspectTraceRun"/>
+</aspects>
+</aspectj>
+
