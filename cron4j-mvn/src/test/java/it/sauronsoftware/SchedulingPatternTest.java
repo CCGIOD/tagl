@@ -1,7 +1,6 @@
 package it.sauronsoftware;
 
 import it.sauronsoftware.cron4j.*;
-import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
