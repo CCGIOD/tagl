@@ -34,7 +34,7 @@ public class SchedulingAjTest {
 	scheduler.schedule("* * * * *", task);
 	scheduler.start();
 	try {
-	    Thread.sleep(1L * 60L * 1000L);
+	    Thread.sleep(3L * 60L * 1000L);
 	} catch (InterruptedException e) {}
 	scheduler.stop();
     }
