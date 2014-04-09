@@ -32,113 +32,156 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
 
-  <build>
+  <dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjrt</artifactId>
+    <version>1.7.4</version>
+  </dependency>
+  <dependency>
+
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.7.4</version>
+  </dependency>
+
+  <dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjtools</artifactId>
+    <version>1.7.4</version>
+  </dependency>
+</dependencies>
+
+<build>
+
+  <pluginManagement>
     <plugins>
       <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-project-info-reports-plugin</artifactId>
-	<version>2.7</version>
-	<configuration>
-	  <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-	</configuration>
-      </plugin>
-
-      <plugin>
-	<!-- Le plugin Cobertura est ajouté ici pour permettre d'éxécuter le goal cobertura pendant la phase package -->
 	<groupId>org.codehaus.mojo</groupId>
-	<artifactId>cobertura-maven-plugin</artifactId>
-	<version>2.6</version>
-
-	<!-- La couverture de code est une technique qui permet de mesurer la quantité de code du programme qui est testé.
-	     Cela sert donc à évaluer les tests. Si le taux de code testé est faible, cela veut dire que les tests sont mauvais
-	     car il ne permettent pas de tester certaines parties du code qui pourraient contenir des erreurs ... -->
-
+	<artifactId>aspectj-maven-plugin</artifactId>
+	<version>1.6</version>
 	<configuration>
-	  <formats>
-	    <format>html</format> <!-- On sélectionne le format html -->
-	  </formats>
+	  <complianceLevel>1.6</complianceLevel>
+	  <outxml>true</outxml>
+	  <verbose>true</verbose>
+	  <showWeaveInfo>true</showWeaveInfo>
 	</configuration>
 	<executions>
 	  <execution>
-	    <phase>package</phase>
 	    <goals>
-	      <goal>cobertura</goal>
+	      <goal>compile</goal>
+	      <goal>test-compile</goal>
 	    </goals>
 	  </execution>
 	</executions>
       </plugin>
     </plugins>
-  </build>
+  </pluginManagement>
 
-  <!-- Utiliser 'mvn site' -->
-  <reporting>
-    <plugins>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-project-info-reports-plugin</artifactId>
+      <version>2.7</version>
+      <configuration>
+	<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+      </configuration>
+    </plugin>
 
-      <!-- Ajout de la couverture de code sur le site -->
-      <!-- Le plugin Cobertura est ajouté ici pour qu'il apparaisse sur le site -->
-      <plugin>
-	<groupId>org.codehaus.mojo</groupId>
-	<artifactId>cobertura-maven-plugin</artifactId>
-	<version>2.6</version>
-	<configuration>
-	  <formats>
-	    <format>html</format>
-	  </formats>
-	</configuration>
-      </plugin>
+    <plugin>
+      <!-- Le plugin Cobertura est ajouté ici pour permettre d'éxécuter le goal cobertura pendant la phase package -->
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>cobertura-maven-plugin</artifactId>
+      <version>2.6</version>
 
-      <!-- Ajout de la javadoc sur le site -->
-      <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-javadoc-plugin</artifactId>
-	<version>2.9.1</version>
-      </plugin>
+      <!-- La couverture de code est une technique qui permet de mesurer la quantité de code du programme qui est testé.
+	   Cela sert donc à évaluer les tests. Si le taux de code testé est faible, cela veut dire que les tests sont mauvais
+	   car il ne permettent pas de tester certaines parties du code qui pourraient contenir des erreurs ... -->
 
-      <!-- Ajout du résultat des tests unitaires sur le site -->
-      <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-surefire-report-plugin</artifactId>
-	<version>2.4.3</version>
-      </plugin>
+      <configuration>
+	<formats>
+	  <format>html</format> <!-- On sélectionne le format html -->
+	</formats>
+      </configuration>
+      <executions>
+	<execution>
+	  <phase>package</phase>
+	  <goals>
+	    <goal>cobertura</goal>
+	  </goals>
+	</execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
 
-      <!-- Ajout du taglist sur le site -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-        <version>2.4</version>
-         <configuration>
-          <tagListOptions>
-            <tagClasses>
-              <tagClass>
-                <displayName>Todo Work</displayName>
-                <tags>
-                  <tag>
-                    <matchString>todo</matchString>
-                    <matchType>ignoreCase</matchType>
-                  </tag>
-                  <tag>
-                    <matchString>FIXME</matchString>
-                    <matchType>exact</matchType>
-                  </tag>
-                </tags>
-              </tagClass>
-            </tagClasses>
-          </tagListOptions>
-        </configuration>
-      </plugin>
+<!-- Utiliser 'mvn site' -->
+<reporting>
+  <plugins>
 
-      <!-- Ajout de la visualisation des sources sur le site -->
-      <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-jxr-plugin</artifactId>
-	<version>2.4</version>
-      </plugin>
+    <!-- Ajout de la couverture de code sur le site -->
+    <!-- Le plugin Cobertura est ajouté ici pour qu'il apparaisse sur le site -->
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>cobertura-maven-plugin</artifactId>
+      <version>2.6</version>
+      <configuration>
+	<formats>
+	  <format>html</format>
+	</formats>
+      </configuration>
+    </plugin>
 
-      <!-- D'autres plugins pourraient être ajoutés ci-après ... -->
-      
-    </plugins>
-  </reporting>
+    <!-- Ajout de la javadoc sur le site -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-javadoc-plugin</artifactId>
+      <version>2.9.1</version>
+    </plugin>
+
+    <!-- Ajout du résultat des tests unitaires sur le site -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-report-plugin</artifactId>
+      <version>2.4.3</version>
+    </plugin>
+
+    <!-- Ajout du taglist sur le site -->
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>taglist-maven-plugin</artifactId>
+      <version>2.4</version>
+      <configuration>
+	<tagListOptions>
+	  <tagClasses>
+	    <tagClass>
+	      <displayName>Todo Work</displayName>
+	      <tags>
+		<tag>
+		  <matchString>todo</matchString>
+		  <matchType>ignoreCase</matchType>
+		</tag>
+		<tag>
+		  <matchString>FIXME</matchString>
+		  <matchType>exact</matchType>
+		</tag>
+	      </tags>
+	    </tagClass>
+	  </tagClasses>
+	</tagListOptions>
+      </configuration>
+    </plugin>
+
+    <!-- Ajout de la visualisation des sources sur le site -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jxr-plugin</artifactId>
+      <version>2.4</version>
+    </plugin>
+
+    <!-- D'autres plugins pourraient être ajoutés ci-après ... -->
+    
+  </plugins>
+</reporting>
 
 </project>
